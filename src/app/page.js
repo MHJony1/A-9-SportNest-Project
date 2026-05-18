@@ -1,9 +1,9 @@
-import FeaturedFacilities from "@/components/FeaturedFacilities";
+import FeaturedFacilities from "@/components/homepage/FeaturedFacilities";
 import Banner from "../components/homepage/Banner";
-import HowItWorks from "@/components/HowItWorks";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import UserReviews from "@/components/userReviews";
-import PremiumCTA from "@/components/PremiumCTA";
+import HowItWorks from "@/components/homepage/HowItWorks";
+import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import UserReviews from "@/components/homepage/userReviews";
+import PremiumCTA from "@/components/homepage/PremiumCTA";
 
 
 export default function Home() {
@@ -18,3 +18,7 @@ export default function Home() {
    </>
   );
 }
+
+
+
+

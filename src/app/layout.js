@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css'; // ওপরে দেওয়া গ্লোবাল সিএসএস রুলস এখানে কাজ করবে
+import './globals.css'; 
 import Navbar from '../components/shared/Navbar';
 import Footer from '../components/shared/Footer';
 
