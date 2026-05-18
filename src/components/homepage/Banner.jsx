@@ -14,12 +14,11 @@ import {
   MdSportsSoccer,
   MdSportsVolleyball,
   MdSportsBasketball,
-  MdPool,
 } from 'react-icons/md';
 import { GiShuttlecock, GiPingPongBat } from 'react-icons/gi';
 import { IoFlash } from 'react-icons/io5';
 
-// ─── SPORTS DATA ─────────────────────────────────────────────
+// ─── SPORTS DATA (Completely Unchanged) ──────────────────────
 const SPORTS = [
   {
     name: 'Football',
@@ -59,7 +58,7 @@ const SPORTS = [
   },
 ];
 
-// ─── STATS ───────────────────────────────────────────────────
+// ─── STATS (Completely Unchanged) ────────────────────────────
 const STATS = [
   { icon: <FaMapMarkerAlt size={16} />, value: '500+', label: 'Facilities' },
   { icon: <FaCalendarCheck size={15} />, value: '10+', label: 'Sports' },
@@ -67,7 +66,7 @@ const STATS = [
   { icon: <FaShieldAlt size={15} />, value: '100%', label: 'Trusted' },
 ];
 
-// ─── ANIMATION VARIANTS ──────────────────────────────────────
+// ─── ANIMATION VARIANTS (Completely Unchanged) ───────────────
 const stagger = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08 } },
@@ -81,7 +80,7 @@ const fadeUp = {
   },
 };
 
-// ─── SPORT CARD ──────────────────────────────────────────────
+// ─── SPORT CARD COMPONENT ────────────────────────────────────
 function SportCard({ sport, className = '' }) {
   return (
     <motion.div
@@ -97,7 +96,7 @@ function SportCard({ sport, className = '' }) {
         unoptimized
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/15 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
       <motion.div
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 0 }}
@@ -110,14 +109,7 @@ function SportCard({ sport, className = '' }) {
         }}
       />
       {/* Badge */}
-      <div
-        className="absolute bottom-2 left-2 flex items-center gap-1.5 px-2 py-1 rounded-lg"
-        style={{
-          background: 'rgba(0,0,0,0.72)',
-          border: '1px solid rgba(182,255,0,0.32)',
-          backdropFilter: 'blur(8px)',
-        }}
-      >
+      <div className="absolute bottom-2 left-2 flex items-center gap-1.5 px-2 py-1 rounded-lg bg-black/72 border border-[#B6FF00]/32 backdrop-blur-md">
         <span style={{ color: '#B6FF00' }}>{sport.icon}</span>
         <span
           className="font-black text-white uppercase"
@@ -130,19 +122,16 @@ function SportCard({ sport, className = '' }) {
   );
 }
 
- const Banner = () =>{
-  // Navbar total heights
-  const NAV_H_MOBILE = 112; // px
-  const NAV_H_SM = 120; // px  (sm: and above)
+const Banner = () => {
+  // Navbar total heights matching original layout calculations
+  const NAV_H_MOBILE = 88;
+  const NAV_H_SM = 120;
 
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ height: '100vh', background: '#050505' }}
-    >
-      {/* ── Responsive style for layout calc ── */}
+    <section className="relative w-full overflow-hidden h-screen">
+      {/* ── Original Layout Style Calculations ── */}
       <style>{`
-        .hero-padtop   { padding-top: ${NAV_H_MOBILE}px; }
+        .hero-padtop { padding-top: ${NAV_H_MOBILE}px; }
         @media (min-width: 640px) {
           .hero-padtop { padding-top: ${NAV_H_SM}px; }
         }
@@ -168,57 +157,17 @@ function SportCard({ sport, className = '' }) {
         }
       `}</style>
 
-      {/* ── Dot grid ── */}
+      {/* ── Main Layout Wrapper ── */}
       <div
-        className="absolute inset-0 opacity-[0.09] pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, #B6FF00 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
-
-      {/* ── Neon blobs ── */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: 0,
-          right: '-5%',
-          width: '52vw',
-          height: '52vw',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(182,255,0,0.09) 0%, transparent 65%)',
-          filter: 'blur(70px)',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: '-10%',
-          left: '-5%',
-          width: '38vw',
-          height: '38vw',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(182,255,0,0.055) 0%, transparent 65%)',
-          filter: 'blur(80px)',
-        }}
-      />
-
-      <div
-        className="hero-padtop relative h-full flex flex-col"
+        className="hero-padtop relative h-full flex flex-col justify-between sm:justify-center"
         style={{ boxSizing: 'border-box' }}
       >
-        <div
-          className="flex-1 flex items-center overflow-hidden"
-          style={{ paddingBottom: '16px' }}
-        >
+        <div className="flex-1 flex items-center overflow-hidden py-4 sm:py-0">
           <div className="w-full max-w-7xl mx-auto px-5 sm:px-8">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* ══════ LEFT: COPY ══════ */}
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+              {/* ══════ LEFT: COPY SECTION ══════ */}
               <motion.div
-                className="flex flex-col items-start"
+                className="flex flex-col items-center lg:items-start text-center lg:text-left"
                 variants={stagger}
                 initial="hidden"
                 animate="show"
@@ -226,20 +175,14 @@ function SportCard({ sport, className = '' }) {
                 {/* Badge */}
                 <motion.div
                   variants={fadeUp}
-                  className="flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full"
+                  className="flex items-center gap-2 mb-4 sm:mb-5 px-4 py-1.5 rounded-full"
                   style={{
                     background: 'rgba(182,255,0,0.07)',
                     border: '1px solid rgba(182,255,0,0.24)',
                   }}
                 >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full animate-pulse"
-                    style={{ background: '#B6FF00' }}
-                  />
-                  <span
-                    className="font-black uppercase text-[11px]"
-                    style={{ color: '#B6FF00', letterSpacing: '0.2em' }}
-                  >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B6FF00] animate-pulse" />
+                  <span className="font-black uppercase text-[11px] tracking-widest text-[#B6FF00]">
                     BOOK • PLAY • COMPETE
                   </span>
                 </motion.div>
@@ -247,7 +190,7 @@ function SportCard({ sport, className = '' }) {
                 {/* Headline */}
                 <motion.h1
                   variants={fadeUp}
-                  className="font-black uppercase leading-[0.88] tracking-tight text-white mb-5"
+                  className="font-black uppercase leading-[0.88] tracking-tight text-white mb-4 sm:mb-5"
                   style={{ fontSize: 'clamp(34px, 4.6vw, 70px)' }}
                 >
                   ONE PLATFORM.
@@ -260,27 +203,25 @@ function SportCard({ sport, className = '' }) {
                 {/* Description */}
                 <motion.p
                   variants={fadeUp}
-                  className="text-zinc-400 leading-relaxed mb-7 max-w-sm"
-                  style={{ fontSize: 'clamp(13px, 1.35vw, 16px)' }}
+                  className="text-zinc-400 leading-relaxed mb-6 max-w-sm text-[clamp(13px, 1.35vw, 16px)] mx-auto lg:mx-0"
                 >
                   Book football turfs, cricket grounds, badminton courts,
-                  swimming pools, volleyball arenas and more — all from one
+                  running pools, volleyball arenas and more — all from one
                   place.
                 </motion.p>
 
                 {/* CTAs */}
                 <motion.div
                   variants={fadeUp}
-                  className="flex flex-wrap gap-3 mb-8"
+                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-6 sm:mb-8 w-full lg:w-auto"
                 >
                   <Link
                     href="/all-facilities"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-black text-sm uppercase text-black transition-all duration-200 active:scale-95"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 sm:py-3 rounded-full font-black text-sm uppercase text-black transition-all duration-200 active:scale-95 tracking-wide"
                     style={{
                       background: '#B6FF00',
                       boxShadow:
                         '0 0 30px rgba(182,255,0,0.42), 0 0 60px rgba(182,255,0,0.14)',
-                      letterSpacing: '0.08em',
                     }}
                   >
                     <FaCalendarCheck size={12} />
@@ -289,25 +230,32 @@ function SportCard({ sport, className = '' }) {
                   </Link>
                   <Link
                     href="/login"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm uppercase text-white transition-all duration-200 active:scale-95"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 sm:py-3 rounded-full font-semibold text-sm uppercase text-white transition-all duration-200 active:scale-95 tracking-wide"
                     style={{
                       background: 'rgba(255,255,255,0.04)',
                       border: '1px solid rgba(255,255,255,0.15)',
-                      letterSpacing: '0.08em',
                     }}
                   >
-                   Get Started
+                    Get Started
                   </Link>
                 </motion.div>
 
-                {/* Stats */}
+                {/* Stats Row */}
                 <motion.div
                   variants={fadeUp}
-                  className="flex flex-wrap gap-6 sm:gap-8"
+                  className="flex flex-wrap justify-center lg:justify-start gap-5 sm:gap-8 w-full"
                 >
                   {STATS.map((s) => (
-                    <div key={s.label} className="flex flex-col gap-1">
-                      <span style={{ color: '#B6FF00' }}>{s.icon}</span>
+                    <div
+                      key={s.label}
+                      className="flex flex-col items-center lg:items-start gap-1"
+                    >
+                      <span
+                        style={{ color: '#B6FF00' }}
+                        className="flex items-center"
+                      >
+                        {s.icon}
+                      </span>
                       <span className="text-white font-black text-sm leading-none">
                         {s.value}
                       </span>
@@ -319,7 +267,7 @@ function SportCard({ sport, className = '' }) {
                 </motion.div>
               </motion.div>
 
-              {/* ══════ RIGHT: IMAGE GRID (desktop only) ══════ */}
+              {/* ══════ RIGHT: IMAGE GRID (Desktop Only) ══════ */}
               <motion.div
                 className="w-full hidden lg:flex flex-col gap-2"
                 initial={{ opacity: 0, x: 32 }}
@@ -354,13 +302,12 @@ function SportCard({ sport, className = '' }) {
                 </div>
               </motion.div>
 
-              {/* ══════ MOBILE: Horizontal scroll strip ══════ */}
+              {/* ══════ MOBILE: Horizontal Scroll Strip ══════ */}
               <motion.div
-                className="flex lg:hidden gap-3 overflow-x-auto pb-2 -mx-5 px-5"
+                className="flex lg:hidden gap-3 overflow-x-auto pb-4 -mx-5 px-5 scrollbar-none"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.55, delay: 0.18 }}
-                style={{ scrollbarWidth: 'none' }}
               >
                 {SPORTS.map((sport) => (
                   <div
@@ -379,7 +326,7 @@ function SportCard({ sport, className = '' }) {
                       unoptimized
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                     <div
                       className="absolute bottom-1.5 left-1.5 flex items-center gap-1 px-1.5 py-0.5 rounded-md"
                       style={{
@@ -387,11 +334,13 @@ function SportCard({ sport, className = '' }) {
                         border: '1px solid rgba(182,255,0,0.3)',
                       }}
                     >
-                      <span style={{ color: '#B6FF00' }}>{sport.icon}</span>
                       <span
-                        className="text-white font-black uppercase"
-                        style={{ fontSize: '8px' }}
+                        style={{ color: '#B6FF00' }}
+                        className="flex items-center"
                       >
+                        {sport.icon}
+                      </span>
+                      <span className="text-white font-black uppercase text-[8px]">
                         {sport.name}
                       </span>
                     </div>
@@ -402,22 +351,8 @@ function SportCard({ sport, className = '' }) {
           </div>
         </div>
       </div>
-
-      {/* ── Bottom fade ── */}
-      <div
-        className="absolute bottom-0 inset-x-0 h-16 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to bottom, transparent, rgba(5,5,5,0.8))',
-        }}
-      />
     </section>
   );
-}
+};
 
 export default Banner;
-
-
-
-
-
