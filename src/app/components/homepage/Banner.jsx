@@ -130,7 +130,7 @@ function SportCard({ sport, className = '' }) {
   );
 }
 
-export default function Banner() {
+ const Banner = () =>{
   // Navbar total heights
   const NAV_H_MOBILE = 112; // px
   const NAV_H_SM = 120; // px  (sm: and above)
@@ -288,7 +288,7 @@ export default function Banner() {
                     <FaArrowRight size={11} />
                   </Link>
                   <Link
-                    href="/my-bookings"
+                    href="/login"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm uppercase text-white transition-all duration-200 active:scale-95"
                     style={{
                       background: 'rgba(255,255,255,0.04)',
@@ -296,7 +296,7 @@ export default function Banner() {
                       letterSpacing: '0.08em',
                     }}
                   >
-                    Book Now
+                   Get Started
                   </Link>
                 </motion.div>
 
@@ -414,3 +414,5 @@ export default function Banner() {
     </section>
   );
 }
+
+export default Banner;
