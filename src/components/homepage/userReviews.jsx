@@ -18,7 +18,7 @@ const fadeInUp = {
 // ─── 9 PREMIUM REVIEWS DATA FROM DIFFERENT SPORTS ───────────
 const REVIEWS = [
   {
-    name: 'Asif Rahman',
+    name: 'Shaina Chowdury',
     role: 'Captain, FC Dhaka Squad',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
     review: 'PlayNest has completely changed how we book turfs. The instant slot booking and confirmation take less than two minutes!',
@@ -98,7 +98,7 @@ const UserReviews = () => {
           animation: marquee 35s linear infinite;
         }
         .marquee-wrapper:hover .animate-marquee-smooth {
-          animation-play-state: paused; /* Hover করলে স্ক্রলিং আলতো করে পজ হয়ে যাবে */
+          animation-play-state: paused; 
         }
       `}</style>
 

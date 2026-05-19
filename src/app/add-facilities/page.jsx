@@ -110,9 +110,9 @@ const AddFacilityClient = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-[#0C0C0C] font-sans text-white pt-36 pb-20 px-4 sm:px-6 md:px-8 selection:bg-[#CCFF00] selection:text-black">
+    <div className="w-full min-h-screen bg-transparent font-sans text-white pt-36 pb-20 px-4 sm:px-6 md:px-8 selection:bg-[#CCFF00] selection:text-black">
       {/* Page Header */}
-      <div className="text-center mb-14 space-y-3">
+      <div className="text-center mb-8 space-y-3">
         <div className="inline-flex items-center gap-2 bg-[#CCFF00]/10 border border-[#CCFF00]/20 px-4 py-1.5 rounded-full text-[#CCFF00] text-xs font-bold tracking-widest uppercase animate-pulse">
           <Sparkles size={13} /> Elite Arena Protocol
         </div>

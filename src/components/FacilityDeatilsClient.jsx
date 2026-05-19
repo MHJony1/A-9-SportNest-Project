@@ -247,7 +247,7 @@ const FacilityDetailsClient = ({ facility }) => {
               className="w-full bg-lime-400 hover:bg-lime-300 text-black font-black py-4 rounded-xl text-sm uppercase tracking-wider shadow-xl flex items-center justify-center gap-2 transition-colors duration-300 cursor-pointer"
             >
               <Zap className="w-4 h-4 fill-black" />
-              Lock Slot & Book Now
+              Lock Slot & Confirm Booking
             </motion.button>
           </form>
         </div>
