@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaBolt, FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -61,7 +62,7 @@ const RegisterPage = () => {
       });
 
       if (signUpError) {
-        console.error('Signup Error:', signUpError);
+        // console.error('Signup Error:', signUpError);
         setError(
           signUpError.message ||
             'Registration failed! Please check your details.',
@@ -70,11 +71,11 @@ const RegisterPage = () => {
       }
 
       if (data) {
-        alert('Account created successfully!');
+        toast.success('Account created successfully!');
         router.push('/login');
       }
     } catch (err) {
-      console.error('Execution Error:', err);
+      // console.error('Execution Error:', err);
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -87,7 +88,7 @@ const RegisterPage = () => {
     try {
       await authClient.signIn.social({
         provider: 'google',
-        callbackURL: '/', // Navigates to target route on success
+        callbackURL: '/', 
       });
     } catch (err) {
       console.error('Google Sign In Error:', err);
@@ -98,12 +99,12 @@ const RegisterPage = () => {
   return (
     <div className="w-full min-h-screen bg-transparent text-white flex items-center justify-center px-4 sm:px-6 pt-30 pb-8 relative overflow-hidden">
       {/* Premium Ambient Neon Lights */}
-      <div className="absolute top-[10%] left-[-5%] w-[300px] h-[300px] rounded-full bg-[#a3e635]/[0.03] blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[10%] right-[-5%] w-[300px] h-[300px] rounded-full bg-[#a3e635]/[0.02] blur-[120px] pointer-events-none" />
+      <div className="absolute top-[10%] left-[-5%] w-75 h-75 rounded-full bg-[#a3e635]/3 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[-5%] w-75 h-75 rounded-full bg-[#a3e635]/2 blur-[120px] pointer-events-none" />
 
       {/* ══════════════ REGISTER CARD LAYER ══════════════ */}
       <motion.div
-        className="w-full max-w-md rounded-[28px] bg-gradient-to-b from-zinc-900/50 to-zinc-950/90 border border-zinc-900 p-6 sm:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.8)] backdrop-blur-md relative z-10 space-y-5"
+        className="w-full max-w-md rounded-[28px] bg-linear-to-b from-zinc-900/50 to-zinc-950/90 border border-zinc-900 p-6 sm:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.8)] backdrop-blur-md relative z-10 space-y-5"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -256,11 +257,11 @@ const RegisterPage = () => {
 
         {/* Divider */}
         <div className="flex items-center py-0.5">
-          <div className="flex-1 h-[1px] bg-zinc-900" />
+          <div className="flex-1 h-px bg-zinc-900" />
           <span className="px-3 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
             Or Secure Login
           </span>
-          <div className="flex-1 h-[1px] bg-zinc-900" />
+          <div className="flex-1 h-px bg-zinc-900" />
         </div>
 
         {/* Google OAuth Button */}

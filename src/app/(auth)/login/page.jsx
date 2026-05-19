@@ -6,11 +6,12 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaBolt, FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
   const router = useRouter();
 
-  // Form Controlled States
+  
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -37,11 +38,11 @@ const LoginPage = () => {
       const { data, error: loginError } = await authClient.signIn.email({
         email: formData.email,
         password: formData.password,
-        callbackURL: '/', // Redirect destinations can be modified here
+        callbackURL: '/', 
       });
 
       if (loginError) {
-        console.error('Better Auth Login Error:', loginError);
+        // console.error('Better Auth Login Error:', loginError);
         setError(
           loginError.message ||
             'Invalid credentials. Please verify your email and password.',
@@ -50,10 +51,11 @@ const LoginPage = () => {
       }
 
       if (data) {
+        toast.success('Login successful!');
         router.push('/');
       }
     } catch (err) {
-      console.error('Execution Error:', err);
+      // console.error('Execution Error:', err);
       setError('An unexpected error occurred during login. Please try again.');
     } finally {
       setLoading(false);
@@ -69,7 +71,7 @@ const LoginPage = () => {
         callbackURL: '/', // Redirects to Home after secure token validation
       });
     } catch (err) {
-      console.error('Google OAuth Error:', err);
+      // console.error('Google OAuth Error:', err);
       setError('Google authentication failed. Please try again.');
     }
   };
