@@ -1,3 +1,4 @@
+// Fetch All Facilities
 export const fetchFacilities = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`);
@@ -12,6 +13,7 @@ export const fetchFacilities = async () => {
   }
 };
 
+// Fetch Featured Facilities
 export const featuredFacilities = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured`);
@@ -27,7 +29,7 @@ export const featuredFacilities = async () => {
 };
 
 
-
+// Fetch Single Facility
 export const fetchFacilityById = async (id) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`);
