@@ -2,20 +2,21 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { headers } from 'next/headers';
-import { auth } from '@/lib/auth'; 
+import { auth } from '@/lib/auth';
+import EditFacilityModal from '@/components/EditFacilityModal';
+import DeleteFacilityAlert from '@/components/DeleteFacilityAlert';
 
 // Dynamic API fetch based entirely on the authenticated owner's email context
 async function getMyFacilities(ownerEmail) {
   if (!ownerEmail) return [];
 
-  const serverUrl =
-    process.env.NEXT_PUBLIC_SERVER_URL;
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   try {
     const res = await fetch(
       `${serverUrl}/manage-facilities?email=${ownerEmail}`,
       {
-        cache: 'no-store', 
+        cache: 'no-store',
       },
     );
 
@@ -32,15 +33,15 @@ async function getMyFacilities(ownerEmail) {
 }
 
 const ManageFacilitiesPage = async () => {
-  // Retrieve the active tracking context via Better Auth on the server side
+  // Fetch the authenticated user's email context
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  // Extract the specific email string from the context profile payload safely
+  // Retrieve the authenticated user's email
   const loggedInUserEmail = session?.user?.email;
 
-  // Protect the route: If no tracking context profile exists, gracefully halt execution
+  // If the authenticated user is not logged in, redirect to the login page
   if (!loggedInUserEmail) {
     return (
       <div className="min-h-screen text-white px-6 pt-32 pb-12 font-sans flex items-center justify-center">
@@ -172,13 +173,10 @@ const ManageFacilitiesPage = async () => {
                 </div>
 
                 {/* Right Section: Interactive Action Controls */}
-                <div className="flex md:flex-col sm:flex-row items-center justify-end gap-2.5 border-t md:border-t-0 border-zinc-800/60 pt-4 md:pt-0 min-w-30">
-                  <button className="w-full sm:w-auto md:w-full text-zinc-300 hover:text-white bg-zinc-800/40 hover:bg-zinc-800 font-semibold px-4 py-2 rounded-xl flex items-center justify-center gap-2 transition-all text-sm border border-zinc-800 hover:border-zinc-700">
-                    ✏️ Edit
-                  </button>
-                  <button className="w-full sm:w-auto md:w-full text-rose-400 hover:text-white bg-rose-500/5 hover:bg-rose-600 font-semibold px-4 py-2 rounded-xl flex items-center justify-center gap-2 transition-all text-sm border border-rose-500/10 hover:border-rose-500">
-                    🗑️ Delete
-                  </button>
+                <div className="flex md:flex-col sm:flex-row items-center justify-end gap-4 border-t md:border-t-0 border-zinc-800/60 pt-4 md:pt-0 min-w-30">
+                  <EditFacilityModal facility={facility} />
+
+                  <DeleteFacilityAlert facility={facility} />
                 </div>
               </div>
             ))
