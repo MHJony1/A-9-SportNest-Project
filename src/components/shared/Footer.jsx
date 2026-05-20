@@ -58,7 +58,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-zinc-950 border-t border-zinc-900 overflow-hidden pt-12 sm:pt-20 pb-8 w-full text-zinc-400">
+    <footer className="relative bg-zinc-950 border-t border-zinc-900 overflow-hidden pt-12 sm:pt-20 pb-8 w-full text-zinc-400" suppressHydrationWarning>
       {/* ── Background Ambiance (Fixed Hydration Issue) ── */}
       <div className="absolute -bottom-24 -left-20 w-112.5 h-112.5 rounded-full bg-lime-400/5 blur-[100px] pointer-events-none" />
 
