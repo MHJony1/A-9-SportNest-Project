@@ -5,9 +5,11 @@ import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { FaInbox } from 'react-icons/fa';
+import { FiArrowUpRight } from 'react-icons/fi';
+import Link from 'next/link';
 import FacilityCard from '@/components/FacilityCard';
 import { featuredFacilities } from '@/lib/facilities/data';
-
+import SkeletonLoader from '../SkeletonLoader';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -41,14 +43,6 @@ const FeaturedFacilities = () => {
     getData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="w-full py-20 flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-zinc-800 border-t-[#a3e635] animate-spin" />
-      </div>
-    );
-  }
-
   return (
     <section className="w-full py-20 px-5 sm:px-8 max-w-7xl mx-auto space-y-12 relative z-10 overflow-hidden">
       {/* ── Custom Pagination Styles to Inject Your Brand Neon Theme ── */}
@@ -75,7 +69,7 @@ const FeaturedFacilities = () => {
 
       {/* ══════════════ PREMIUM SECTION HEADER WITH MOTION ══════════════ */}
       <motion.div
-        className="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-900/60 pb-6 gap-4"
+        className="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-900/60 pb-6 gap-6"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -92,13 +86,28 @@ const FeaturedFacilities = () => {
             Featured <span className="text-[#a3e635]">Facilities</span>
           </h2>
         </div>
-        <p className="text-zinc-400 text-sm max-w-xs leading-relaxed md:text-right font-medium">
-          Handpicked premium arenas with high-end amenities and top-tier
-          ratings.
-        </p>
+
+        <div className="flex flex-col md:items-end gap-4 max-w-sm w-full md:w-auto">
+          <p className="text-zinc-400 text-sm leading-relaxed md:text-right font-medium">
+            Handpicked premium arenas with high-end amenities and top-tier
+            ratings.
+          </p>
+
+          {/* view all facilities button */}
+          <Link
+            href="/all-facilities"
+            className="group flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 border border-zinc-800 hover:border-[#a3e635]/50 text-white rounded-2xl text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-[#a3e635]/5"
+          >
+            <span>View All Facilities</span>
+            <FiArrowUpRight
+              size={16}
+              className="text-zinc-500 group-hover:text-[#a3e635] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+            />
+          </Link>
+        </div>
       </motion.div>
 
-      {/* ══════════════ SWIPER SLIDER WITH MOTION ══════════════ */}
+      {/* SWIPER SLIDER OR SKELETON  */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -106,11 +115,29 @@ const FeaturedFacilities = () => {
         variants={fadeInUp}
         className="w-full"
       >
-        {featuredData.length > 0 ? (
+        {loading ? (
+          <Swiper
+            modules={[Pagination]}
+            spaceBetween={24}
+            slidesPerView={1.15}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              640: { slidesPerView: 2.2, spaceBetween: 24 },
+              1024: { slidesPerView: 3.2, spaceBetween: 28 },
+            }}
+            className="premium-swiper overflow-visible"
+          >
+            {Array.from({ length: 4 }).map((_, index) => (
+              <SwiperSlide key={index} className="h-full py-2">
+                <SkeletonLoader />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : featuredData.length > 0 ? (
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={24}
-            slidesPerView={1}
+            slidesPerView={1.15} 
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
@@ -121,8 +148,14 @@ const FeaturedFacilities = () => {
               dynamicBullets: false,
             }}
             breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 24 },
-              1024: { slidesPerView: 3, spaceBetween: 28 },
+              640: {
+                slidesPerView: 2.2,
+                spaceBetween: 24,
+              },
+              1024: {
+                slidesPerView: 3.2,
+                spaceBetween: 28,
+              } 
             }}
             className="premium-swiper overflow-visible"
           >
