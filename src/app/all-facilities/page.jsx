@@ -1,9 +1,8 @@
 import FacilitiesClient from '@/components/FacilitiesClient';
 
 const AllFacilitiesPage = () => {
-  const mockFacility = {};
 
-  return <FacilitiesClient facility={mockFacility} />;
+  return <FacilitiesClient />;
 };
 
 export default AllFacilitiesPage;

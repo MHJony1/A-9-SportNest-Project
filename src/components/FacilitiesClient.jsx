@@ -36,7 +36,7 @@ function useDebounce(value, delay) {
 
 
 // MAIN CLIENT COMPONENT 
-export default function FacilitiesClient({ facility }) {
+export default function FacilitiesClient() {
   const router = useRouter();
   const pathname = usePathname();
 

@@ -137,7 +137,7 @@ const FeaturedFacilities = () => {
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={24}
-            slidesPerView={1.15} 
+            slidesPerView={1.09} 
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
