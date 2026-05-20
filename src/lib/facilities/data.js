@@ -28,18 +28,28 @@ export const featuredFacilities = async () => {
   }
 };
 
-
-// Fetch Single Facility
-export const fetchFacilityById = async (id) => {
+ // Fetch Single Facility
+ export const fetchFacilityById = async (id, headerList) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`);
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+    const cookieHeader = headerList?.get('cookie') || '';
+
+    const res = await fetch(`${serverUrl}/facilities/${id}`, {
+      method: 'GET',
+      headers: {
+        cookie: cookieHeader, 
+      },
+      cache: 'no-store',
+    });
+
     if (!res.ok) {
-      throw new Error("Facility details fetched properly na");
+      throw new Error('Facility details fetched properly na');
     }
+
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching single facility data:", error);
-    return null; 
+    console.error('Error fetching single facility data:', error);
+    return null;
   }
-}
+};

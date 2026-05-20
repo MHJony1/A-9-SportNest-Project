@@ -24,7 +24,7 @@ import toast from 'react-hot-toast';
 const FacilityDetailsClient = ({ facility }) => {
   const router = useRouter();
 
-  // Session Management
+  // Session and user data
   const { data: session } = authClient.useSession();
   const userEmail = session?.user?.email;
 
@@ -66,18 +66,16 @@ const FacilityDetailsClient = ({ facility }) => {
 
   // POST Dispatch logic
   const onSubmit = async (data) => {
-    // Session Check
-    if (!userEmail) {
+    // Client-side authentication
+    if (!session) {
       alert('Authentication required! Please sign in to lock arena slots.');
       return;
     }
 
+    // Better Auth Check
+    const token = session?.session?.token || session?.session?.id;
     const totalFee = price_per_hour * bookingDuration;
-
-    // const { data: tokenData } = await authClient.token();
-
-    const serverUrl =
-      process.env.NEXT_PUBLIC_SERVER_URL;
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
     const bookingPayload = {
       facilityId: _id,
@@ -89,7 +87,8 @@ const FacilityDetailsClient = ({ facility }) => {
       duration: bookingDuration,
       totalFee,
       status: 'Pending',
-      userEmail: userEmail, 
+      email: userEmail,
+      userEmail: userEmail,
     };
 
     try {
@@ -97,7 +96,7 @@ const FacilityDetailsClient = ({ facility }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // authorization: `Bearer ${tokenData?.token}`,
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(bookingPayload),
       });

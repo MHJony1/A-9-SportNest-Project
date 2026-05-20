@@ -31,12 +31,16 @@ const MyBookingsPage = () => {
 
       try {
         setLoading(true);
-        const serverUrl =
-          process.env.NEXT_PUBLIC_SERVER_URL;
 
+        const { data: tokenData } = await authClient.token();
+        const token = tokenData?.token;
+        
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+        
         const res = await fetch(`${serverUrl}/bookings?email=${user.email}`, {
           headers: {
             'Content-Type': 'application/json',
+             Authorization: `Bearer ${token}`,
           },
         });
 
@@ -228,3 +232,9 @@ const MyBookingsPage = () => {
 };
 
 export default MyBookingsPage;
+
+
+
+
+
+

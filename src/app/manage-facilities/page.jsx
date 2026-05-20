@@ -7,15 +7,20 @@ import EditFacilityModal from '@/components/EditFacilityModal';
 import DeleteFacilityAlert from '@/components/DeleteFacilityAlert';
 
 // Dynamic API fetch based entirely on the authenticated owner's email context
-async function getMyFacilities(ownerEmail) {
+async function getMyFacilities(ownerEmail, headerList) {
   if (!ownerEmail) return [];
 
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  const cookieHeader = headerList?.get('cookie') || '';
 
   try {
     const res = await fetch(
       `${serverUrl}/manage-facilities?email=${ownerEmail}`,
       {
+        method: 'GET',
+        headers: {
+          cookie: cookieHeader,
+        },
         cache: 'no-store',
       },
     );
@@ -33,9 +38,11 @@ async function getMyFacilities(ownerEmail) {
 }
 
 const ManageFacilitiesPage = async () => {
+  const headerList = await headers();
+
   // Fetch the authenticated user's email context
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: headerList,
   });
 
   // Retrieve the authenticated user's email
@@ -66,7 +73,7 @@ const ManageFacilitiesPage = async () => {
     );
   }
 
-  const myFacilities = await getMyFacilities(loggedInUserEmail);
+  const myFacilities = await getMyFacilities(loggedInUserEmail, headerList);
 
   return (
     <div className="min-h-screen text-white px-6 pt-32 pb-12 font-sans selection:bg-[#a3e635] selection:text-black">
@@ -175,7 +182,6 @@ const ManageFacilitiesPage = async () => {
                 {/* Right Section: Interactive Action Controls */}
                 <div className="flex md:flex-col sm:flex-row items-center justify-end gap-4 border-t md:border-t-0 border-zinc-800/60 pt-4 md:pt-0 min-w-30">
                   <EditFacilityModal facility={facility} />
-
                   <DeleteFacilityAlert facility={facility} />
                 </div>
               </div>

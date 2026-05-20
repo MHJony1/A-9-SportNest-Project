@@ -60,16 +60,16 @@ export default function EditFacilityModal({ facility }) {
     if (updateData.capacity) updateData.capacity = Number(updateData.capacity);
 
     // Retrieve active verification tokens from Better Auth client instance
-    // const { data: tokenData } = await authClient.token();
+    const { data: tokenData } = await authClient.token();
     const serverUrl =
-      process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000';
+      process.env.NEXT_PUBLIC_SERVER_URL;
 
     try {
       const res = await fetch(`${serverUrl}/facilities/${_id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          // authorization: `Bearer ${tokenData?.token}`,
+          authorization: `Bearer ${tokenData?.token}`,
         },
         body: JSON.stringify(updateData),
       });

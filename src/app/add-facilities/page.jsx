@@ -14,7 +14,7 @@ import {
   Sparkles,
   Loader2,
 } from 'lucide-react';
-import { useSession } from '@/lib/auth-client';
+import { authClient, useSession } from '@/lib/auth-client';
 import toast from 'react-hot-toast';
 
 const AddFacilityClient = () => {
@@ -70,6 +70,7 @@ const AddFacilityClient = () => {
 
     console.log('Final Sync Data Payload:', allFacilities);
 
+    const {data:tokenData} = await authClient.token();
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/all-facilities`,
@@ -77,6 +78,7 @@ const AddFacilityClient = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            authorization: `Bearer ${tokenData?.token}`,
           },
           body: JSON.stringify(allFacilities),
         },

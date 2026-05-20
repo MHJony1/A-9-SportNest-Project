@@ -10,16 +10,17 @@ const BookingCancelAlert = ({ booking, onCancelSuccess }) => {
   const { _id, facilityName, bookingDate, slot } = booking;
 
   const handleCancelBooking = async () => {
-    const { data: tokenData } = await authClient.token();
+   const { data: tokenData } = await authClient.token();
+   const token = tokenData?.token;
     
-    const serverUrl =
-      process.env.NEXT_PUBLIC_SERVER_URL;
-
+    const serverUrl =  process.env.NEXT_PUBLIC_SERVER_URL;
+     
     try {
       const res = await fetch(`${serverUrl}/bookings/${_id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
       });
 
@@ -121,3 +122,9 @@ const BookingCancelAlert = ({ booking, onCancelSuccess }) => {
 };
 
 export default BookingCancelAlert;
+
+
+
+
+
+
