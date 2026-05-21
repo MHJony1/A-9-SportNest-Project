@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'PLAYNEST | Premium Sports Booking Platform',
-  description: 'Reserve premium pitches, courts, and complexes instantly.',
+  title: 'PlayNest',
+  description: 'Book football turfs, cricket grounds and more',
 };
 
 export default function RootLayout({ children }) {
