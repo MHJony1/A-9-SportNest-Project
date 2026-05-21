@@ -28,7 +28,6 @@ const FeaturedFacilities = () => {
   const [featuredData, setFeaturedData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Client-side data fetching to support swiper and motion dynamics flawlessly
   useEffect(() => {
     const getData = async () => {
       try {
@@ -44,13 +43,14 @@ const FeaturedFacilities = () => {
   }, []);
 
   return (
-    <section className="w-full py-20 px-5 sm:px-8 max-w-7xl mx-auto space-y-12 relative z-10 overflow-hidden">
-      {/* ── Custom Pagination Styles to Inject Your Brand Neon Theme ── */}
+    <section className="w-full py-20 pl-5 pr-0 sm:pl-8 max-w-7xl mx-auto space-y-12 relative z-10 overflow-hidden">
+      {/* ── Custom Pagination & Premium Layout Styles ── */}
       <style>{`
         .premium-swiper .swiper-pagination {
           position: relative !important;
           margin-top: 40px !important;
           bottom: 0 !important;
+          padding-right: 20px; /* ডানপাশের প্যাডিং ব্যালেন্স করার জন্য */
         }
         .premium-swiper .swiper-pagination-bullet {
           background: #3f3f46 !important;
@@ -62,14 +62,33 @@ const FeaturedFacilities = () => {
         }
         .premium-swiper .swiper-pagination-bullet-active {
           background: #a3e635 !important;
-          width: 24px; /* Premium pill stretch effect */
+          width: 24px;
           box-shadow: 0 0 12px rgba(163, 230, 53, 0.6);
+        }
+        
+        
+        .premium-swiper .swiper-wrapper {
+          display: flex !important;
+          align-items: stretch !important;
+        }
+        .premium-swiper .swiper-slide {
+          height: auto !important;
+          display: flex !important;
+          justify-content: center;
+        }
+       
+        .premium-swiper .swiper-slide > div {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+          width: 100%;
         }
       `}</style>
 
-      {/* ══════════════ PREMIUM SECTION HEADER WITH MOTION ══════════════ */}
+      {/* PREMIUM SECTION HEADER WITH MOTION  */}
       <motion.div
-        className="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-900/60 pb-6 gap-6"
+        className="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-900/60 pb-6 gap-6 pr-5 sm:pr-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -93,7 +112,6 @@ const FeaturedFacilities = () => {
             ratings.
           </p>
 
-          {/* view all facilities button */}
           <Link
             href="/all-facilities"
             className="group flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 border border-zinc-800 hover:border-[#a3e635]/50 text-white rounded-2xl text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-[#a3e635]/5"
@@ -107,7 +125,7 @@ const FeaturedFacilities = () => {
         </div>
       </motion.div>
 
-      {/* SWIPER SLIDER OR SKELETON  */}
+      {/* SWIPER SLIDER OR SKELETON */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -123,12 +141,12 @@ const FeaturedFacilities = () => {
             pagination={{ clickable: true }}
             breakpoints={{
               640: { slidesPerView: 2.2, spaceBetween: 24 },
-              1024: { slidesPerView: 3.2, spaceBetween: 28 },
+              1024: { slidesPerView: 3.25, spaceBetween: 28 }, // ৩টি পুরো এবং ৪র্থটির ২৫% অংশ দেখাবে
             }}
             className="premium-swiper overflow-visible"
           >
             {Array.from({ length: 4 }).map((_, index) => (
-              <SwiperSlide key={index} className="h-full py-2">
+              <SwiperSlide key={index} className="py-2">
                 <SkeletonLoader />
               </SwiperSlide>
             ))}
@@ -137,7 +155,9 @@ const FeaturedFacilities = () => {
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={24}
-            slidesPerView={1.09} 
+            slidesPerView={
+              1.15
+            } 
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
@@ -148,29 +168,28 @@ const FeaturedFacilities = () => {
               dynamicBullets: false,
             }}
             breakpoints={{
+              
               640: {
                 slidesPerView: 2.2,
                 spaceBetween: 24,
               },
+             
               1024: {
-                slidesPerView: 3.2,
+                slidesPerView: 3.25, 
                 spaceBetween: 28,
-              } 
+              },
             }}
             className="premium-swiper overflow-visible"
           >
             {featuredData.map((facility) => (
-              <SwiperSlide
-                key={facility._id || facility.id}
-                className="h-full py-2"
-              >
+              <SwiperSlide key={facility._id || facility.id} className="py-2">
                 <FacilityCard facility={facility} />
               </SwiperSlide>
             ))}
           </Swiper>
         ) : (
-          /* Fallback State Layout if database returns empty */
-          <div className="w-full rounded-3xl border border-zinc-900 bg-zinc-900/10 py-20 px-4 flex flex-col items-center justify-center text-center backdrop-blur-sm shadow-inner">
+          /* Fallback State */
+          <div className="w-full rounded-3xl border border-zinc-900 bg-zinc-900/10 py-20 px-4 flex flex-col items-center justify-center text-center backdrop-blur-sm shadow-inner mr-5">
             <div className="w-14 h-14 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-zinc-600 mb-5 shadow-xl">
               <FaInbox size={22} className="text-zinc-500" />
             </div>
