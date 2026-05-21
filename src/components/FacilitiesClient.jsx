@@ -122,7 +122,7 @@ export default function FacilitiesClient() {
 
   // ─── RENDER ───
   return (
-    <main className="min-h-screen pt-32 pb-20 px-5 sm:px-8 relative bg-black text-white">
+    <main className="min-h-screen pt-32 pb-20 px-5 sm:px-8 relative bg-transparent text-white">
       <div className="relative max-w-7xl mx-auto w-full z-10 space-y-10">
         {/* ══ HEADER ══ */}
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-900/80 pb-8 gap-6">

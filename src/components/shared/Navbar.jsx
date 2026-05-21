@@ -102,7 +102,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ══════════════ STICKY NAVBAR CONTAINER ══════════════ */}
+      {/* STICKY NAVBAR CONTAINER */}
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           scrolled ? 'p-2 sm:p-3' : 'p-4 sm:p-5'

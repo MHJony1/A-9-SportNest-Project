@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -42,6 +42,7 @@ const FacilityDetailsClient = ({ facility }) => {
     capacity = 0,
   } = facility || {};
 
+  const [liveBookingCount, setLiveBookingCount] = useState(booking_count ?? 0);
   const [bookingDuration, setBookingDuration] = useState(1);
   const {
     register,
@@ -49,6 +50,26 @@ const FacilityDetailsClient = ({ facility }) => {
     formState: { errors },
     reset,
   } = useForm();
+
+  // Fetch live booking count
+  useEffect(() => {
+    if (!_id) return;
+
+    const fetchCount = async () => {
+      try {
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+        const res = await fetch(`${serverUrl}/bookings/count/${_id}`);
+        if (res.ok) {
+          const data = await res.json();
+          setLiveBookingCount(data.count);
+        }
+      } catch (err) {
+        console.error('Count fetch error:', err);
+      }
+    };
+
+    fetchCount();
+  }, [_id]);
 
   // Function to render stars
   const renderStars = () => {
@@ -153,7 +174,7 @@ const FacilityDetailsClient = ({ facility }) => {
             {booking_count >= 0 && (
               <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md border border-white/8 px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide flex items-center gap-2 text-lime-400 shadow-xl">
                 <Flame className="w-4 h-4 text-orange-500 fill-orange-500 animate-pulse" />
-                <span>{booking_count} Match Slots Reserved Recently</span>
+                <span>{liveBookingCount} Match Slots Reserved Recently</span>
               </div>
             )}
           </div>

@@ -173,7 +173,7 @@ const ManageFacilitiesPage = async () => {
                       </span>
                       <span className="text-zinc-700">|</span>
                       <span className="text-[#a3e635] bg-[#a3e635]/5 px-2 py-0.5 rounded text-xs border border-[#a3e635]/10 font-medium">
-                        0 Bookings
+                         {facility.booking_count ?? 0} Bookings
                       </span>
                     </div>
                   </div>
